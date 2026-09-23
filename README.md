@@ -35,7 +35,7 @@ saying what it did. Every switch ships off. "Shipped" means measured over season
 feature with nothing to measure (resume, cadence), exercised end to end in game; "proven" means a
 probe and the change were confirmed in a test dynasty but not measured over many seasons, so treat a
 season with one on as your own measurement. The maths and the measurements behind the shipped four
-are in `AutoProgress-Method.html` in this folder (also at https://sdmart3.github.io/cfb-27-autoprogress/).
+are in `AutoProgress-Method.html` in this folder (also at https://sdmart3.github.io/dynasty-hooks/).
 
 | Hook | master switch | status | what it does when on |
 | --- | --- | --- | --- |
