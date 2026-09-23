@@ -1,0 +1,360 @@
+<title>AutoProgress Method Book</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f5f6f3; --panel:#ffffff; --ink:#15213a; --ink-2:#4a556b; --rule:#d5d9d2;
+  --mod:#2f7d4e; --mod-soft:#d7eadd; --van:#b5533c; --van-soft:#f1dcd5; --target:#c9962f; --mono-bg:#eef1ea;
+  --link:#1f5f8b;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#121821; --panel:#1a222d; --ink:#e7ebef; --ink-2:#aab3c0; --rule:#2d3742;
+  --mod:#5cc48a; --mod-soft:#1f3a2c; --van:#e07a5f; --van-soft:#3f2620; --target:#e5b654; --mono-bg:#1f2833; --link:#7fb6e0;
+}}
+:root[data-theme="dark"]{
+  --bg:#121821; --panel:#1a222d; --ink:#e7ebef; --ink-2:#aab3c0; --rule:#2d3742;
+  --mod:#5cc48a; --mod-soft:#1f3a2c; --van:#e07a5f; --van-soft:#3f2620; --target:#e5b654; --mono-bg:#1f2833; --link:#7fb6e0;
+}
+body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,Segoe UI,sans-serif;font-size:16px;line-height:1.55;margin:0;padding-block:0 64px;padding-inline:16px}
+.wrap{max-width:74ch;margin:0 auto}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Impact,sans-serif;text-wrap:balance;line-height:1.05;margin:0}
+h1{font-size:clamp(40px,7vw,64px);font-weight:700;letter-spacing:.01em;text-transform:uppercase}
+h2{font-size:32px;font-weight:700;margin-top:56px;padding-top:18px;border-top:3px solid var(--ink)}
+h3{font-size:22px;font-weight:600;margin-top:28px;color:var(--ink)}
+.kicker{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.12em;font-size:14px;color:var(--ink-2);font-weight:600}
+header{padding-block:40px 8px}
+header p.lead{font-size:19px;max-width:60ch;margin:16px 0 0}
+p{margin:12px 0}
+a{color:var(--link)}
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px 24px;margin:24px 0 8px;padding:16px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.toc a{text-decoration:none;color:var(--ink);font-family:"Barlow Condensed",sans-serif;font-size:18px;font-weight:600}
+.toc a span{color:var(--ink-2);font-weight:600;margin-right:6px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:15px;margin:14px 0}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:"Barlow Condensed",sans-serif;font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);font-weight:600}
+td.n,th.n{text-align:right}
+.tbl{overflow-x:auto}
+.formula{font-family:"IBM Plex Mono",Consolas,monospace;font-size:14.5px;background:var(--mono-bg);padding:12px 14px;border-left:3px solid var(--mod);margin:14px 0;overflow-x:auto;white-space:pre}
+code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.92em;background:var(--mono-bg);padding:1px 5px;border-radius:3px}
+figure{margin:22px 0;padding:14px 12px 10px;background:var(--panel);border:1px solid var(--rule)}
+figure svg{width:100%;height:auto;display:block;max-width:100%}
+figcaption{font-size:14px;color:var(--ink-2);margin-top:8px;line-height:1.45}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;color:var(--ink-2);margin:0 0 6px}
+.legend i{display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-1px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.note{border-left:3px solid var(--target);padding:8px 14px;margin:16px 0;background:var(--panel)}
+dl.ledger{margin:0}
+dl.ledger>div{padding:14px 0;border-bottom:1px solid var(--rule)}
+dl.ledger dt{font-weight:600;font-size:17px}
+dl.ledger dd{margin:6px 0 0}
+dl.ledger dd b{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.06em;font-size:13px;color:var(--ink-2);margin-right:6px}
+.tag{display:inline-block;font-family:"Barlow Condensed",sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--rule);margin-left:8px;vertical-align:middle;color:var(--ink-2)}
+.tag.ok{border-color:var(--mod);color:var(--mod)}
+ol.steps{padding-left:22px}
+ol.steps li{margin:10px 0}
+ol.steps li strong{font-family:"Barlow Condensed",sans-serif;font-size:18px;letter-spacing:.02em}
+footer{margin-top:56px;padding-top:14px;border-top:1px solid var(--rule);font-size:14px;color:var(--ink-2)}
+@media (prefers-reduced-motion: no-preference){ figure svg rect{transition:opacity .2s} }
+</style>
+
+<div class="wrap">
+<header>
+  <div class="kicker">College Football 27 · AutoProgress · release 0.2.1, 22 September 2026 · verified on the 2026-09-22 title update</div>
+  <h1>AutoProgress<br>Method Book</h1>
+  <p class="lead">Every formula the DLL runs, every number we measured while building it, and every assumption we made along the way. Written so a curious player can follow it and a sceptical one can check it.</p>
+</header>
+
+<nav class="toc" aria-label="Contents">
+  <a href="#glance"><span>1</span>What it changes</a>
+  <a href="#spend"><span>2</span>Smart spending</a>
+  <a href="#traits"><span>3</span>Development traits</a>
+  <a href="#line"><span>4</span>Three seasons, measured</a>
+  <a href="#spread"><span>5</span>The Development Spread</a>
+  <a href="#results"><span>6</span>Spread results in game</a>
+  <a href="#assume"><span>7</span>Assumptions and limits</a>
+  <a href="#method"><span>8</span>How it was tested</a>
+</nav>
+
+<h2 id="glance">1. What it changes</h2>
+<p>The game runs CPU player development once a year, at Training Results. AutoProgress hooks three points in that pass and nothing else: which skill group a CPU player buys with his points, whether a development trait can fall as well as rise, and how far each player's skill ceilings sit from the players like him, with his program's quality and his own production on the field weighing on that last one. The user's own progression screen, recruiting, and the season itself are untouched.</p>
+<div class="tbl"><table>
+<tr><th>Change</th><th>Vanilla behaviour</th><th>With AutoProgress</th><th>Measured effect</th></tr>
+<tr><td>Skill-point spending</td><td>A random affordable skill group</td><td>Groups weighted by overall gained per point, discounted by room left</td><td>About +2.3 overall per CPU player per offseason: 4.6 gained from his points against 2.3 with the game’s random pick and 4.8 for a perfect picker (section 2)</td></tr>
+<tr><td>Development trait</td><td>Can only rise</td><td>Can fall after a poor season, by the game's own season score</td><td>About 50 falls a season against 100 to 150 rises</td></tr>
+<tr><td>Skill ceilings</td><td>Fixed when the player is generated</td><td>Re-rolled yearly around the average of players like him; 8% bust; cuts fund breakouts</td><td>Players at 90+ doubled and players under 65 doubled after three seasons, league average up half a point</td></tr>
+<tr><td>Program quality</td><td>No effect on development</td><td>Coach, facilities and upgrades nudge ceiling targets up to ±10 levels within a trait; producers are shielded from the downside</td><td>Top-quarter programs grow 1.3 overall more than bottom-quarter ones over three seasons</td></tr>
+</table></div>
+
+<h2 id="spend">2. Smart spending</h2>
+<p>At Training Results the game gives each CPU player a number of skill points and spends them one purchase at a time. For each purchase it lists the skill groups he can still afford and can still level, then picks one at random. Buying a level in a group raises every skill in that group by 2, up to the group's ceiling, so which group he buys decides how much his overall rating moves.</p>
+<p>The DLL replaces the random pick with a weighted one. Each candidate group gets a weight from how much overall it buys per point, and the pick is drawn in proportion to those weights. The game's own random number is still consumed, so the rest of the game's random sequence is exactly as in vanilla.</p>
+<div class="formula">weight(group) = ( value(group) / cost(group) × headroom(group) + floor ) ^ exponent
+
+value      overall gained per level for this player's archetype (measured on sim saves, else from EA's own overall formula)
+cost       skill points the next level costs (the game's number)
+headroom   share of the group's skills that can still move before hitting their tier ceiling (1.0 = all, 0.0 = none)
+floor      0.02, keeps every group possible
+exponent   2 (shipped): leans hard to value without being greedy; 1 = proportional, 0 = vanilla</div>
+<p>The value tables come from two views of a player: what raises his overall rating, and what matters on the field for his position. The shipped table blends them 75/25 toward overall.</p>
+<p><b>Value tables regenerated 20 September 2026, re-measured 21 September.</b> The overall formulas the tables are built from were replaced by a fit that is 99.97% exact against the game’s own overall rating over 11,730 rostered players (the earlier fit was 51.5% exact and overfit for 19 archetypes). For 20 of the 60 archetypes that changed which skill group is worth most. One Training Results was then run on the new tables from the 2028 signing-day save (7,771 players scored with the same tool as the chart above): the hook’s picks bought 4.61 overall per player from the offseason’s points, against 2.34 for the game’s random pick on the same save and 4.82 for a perfect picker, so 96% of the optimum, and the share of points wasted on groups worth under 0.15 overall per level fell from 14% on the old tables to 10%. The chart above still shows the old-table simulation; its shape holds, its bars sit a little low.</p>
+<figure>
+  <div class="legend"><span><i style="background:var(--van)"></i>the game's own picker</span><span><i style="background:var(--mod)"></i>AutoProgress tables</span><span><i style="background:var(--target)"></i>a perfect picker</span></div>
+  <svg id="c-tables" viewBox="0 0 640 230" role="img" aria-label="Simulated overall gained per player from one offseason of points, by picker"></svg>
+  <figcaption>Overall rating gained per player from one offseason's points, simulated on a real save's rosters (<code>progression-efficiency.js</code>). The overall table was also measured in game at 4.12, within 3% of its simulated 4.00.</figcaption>
+</figure>
+<h3>Pace: the same picks, more or less fuel</h3>
+<p>Better picks mean faster growth. Measured one offseason from the same save, the whole player table grew +1.20 overall per player in vanilla and +2.40 with the hook. That is what we call human pace: CPU teams developing the way a person who reads the skill trees would. Two companion mods scale the game's offseason experience table down so the CPU keeps its smarter picks but grows closer to vanilla speed.</p>
+<figure>
+  <div class="legend"><span><i style="background:var(--van)"></i>vanilla picks</span><span><i style="background:var(--mod)"></i>AutoProgress picks</span></div>
+  <svg id="c-pace" viewBox="0 0 640 230" role="img" aria-label="Growth per player and players at 90 or better, by experience scale"></svg>
+  <figcaption>One offseason from the same 2028 save. Left bars: overall gained per player. Right labels: players at 90+ afterwards, whole table. Growth is close to linear in the experience scale: about +2.0 per unit of scale plus +0.4.</figcaption>
+</figure>
+
+<h2 id="traits">3. Development traits</h2>
+<p>A player's development trait (Normal, Impact, Star, Elite) sets how many points he gets. The game rolls a rise once a year from his season score, a 0 to 100 figure it computes from his stats for his position. The chance is the score minus a threshold for his current tier, scaled by a coach bonus:</p>
+<div class="formula">rise chance = ( seasonScore − threshold[tier] ) × ( 100 + coachBonus ) / 100      roll 0..100 at or below the chance = one tier up
+threshold  vanilla 25 / 50 / 75 for Normal / Impact / Star  (shipped tuning 14 / 29 / 43, see below)</div>
+<p>Nothing in the game ever lowers a trait. The DLL adds the mirror image, using the game's own season score, random number generator and field setter:</p>
+<div class="formula">fall chance = ( floor[tier] − seasonScore ) × scale / 100        rolled only if the player did NOT just rise
+floor      25 / 50 / 50 for Impact / Star / Elite: the score a player needed to rise INTO that tier (Elite held to Star's bar)
+gates      no roll with a season score below 1 (0 means no season on record: bench, redshirt, incoming recruit)
+           no roll for players in their first season (the class year at roll time is already next season's)</div>
+<p>The gates came from the first run: 286 falls, of which 247 were players with a season score of 0, who had not played, not played badly. With the gates the validated run gave 109 rises and 47 falls; across a three-season line the counts were 97/54, 132/45 and 143/57.</p>
+<h3>Rise tuning: holding the Star and Elite pools steady</h3>
+<p>With smarter spending, players outgrow their traits. Following each tier through a season (who left, who arrived, who was promoted or demoted) showed the Star pool needs about 57 promotions a season to hold its size and was getting 16; Elite needs about 10 and was getting 1. The thresholds are data in the game's expression file, so we lowered them and measured, one Training Results from the same save each time:</p>
+<figure>
+  <div class="legend"><span><i style="background:var(--van)"></i>vanilla 25/50/75</span><span><i style="background:var(--mod-soft);border:1px solid var(--mod)"></i>trial thresholds</span><span><i style="background:var(--mod)"></i>shipped 14/29/43</span><span><i style="background:var(--target)"></i>target (steady pools)</span></div>
+  <svg id="c-rise" viewBox="0 0 640 260" role="img" aria-label="Promotions per tier by rise threshold set"></svg>
+  <figcaption>Promotions in one Training Results by threshold set. Star to Elite is sharply non-linear: 55 gave 2, 47 gave 5, 43 gave 14, 40 gave 17. The 13/29/47 run's 202 is an outlier against 14 and 15 both giving about 153, which is why tuning stopped here: single-run noise is about ±13 on a count near 170 and ±3 near 10. The standalone tuning mod stacked on Sean's play mod gave 169 / 58 / 7.</figcaption>
+</figure>
+
+<h2 id="line">4. Three seasons, measured</h2>
+<p>Before the rise tuning and the spread existed, the smart-spending hook and the fall roll ran for three seasons from the same 2028 save, against a vanilla line from the same save. These counts are the whole player table, recruits included, so they are larger than the rostered-only figures later on.</p>
+<figure>
+  <div class="legend"><span><i style="background:var(--van)"></i>vanilla</span><span><i style="background:var(--mod)"></i>AutoProgress, human pace</span></div>
+  <svg id="c-line" viewBox="0 0 640 250" role="img" aria-label="Players at 90 or better and mean overall over three seasons"></svg>
+  <figcaption>Left: players rated 90 or better at each Training Results. Right: mean overall. Under-65 players fell 2,079 → 1,972 on the hook line. Star and Elite pools shrank (930 → 783 and 231 → 193) as players outgrew their traits, which is what the rise tuning in section 3 corrects.</figcaption>
+</figure>
+
+<h2 id="spread">5. The Development Spread</h2>
+<p>Every player has six skill ceilings, one per skill group, 0 to 20 each, 120 in total. A ceiling is a hard stop: once a group reaches it, no more levels can be bought there. The game fixes them when a player is generated, and they track his recruiting stars closely, so a five-star almost never busts and a two-star almost never breaks out. The spread re-rolls them once a year so that surprises in both directions happen at realistic rates, without moving any group's average.</p>
+<p>This is the Dynasty Development app's roster pass, ported line for line into the DLL and checked against the app player by player (section 8). It runs league-wide at the first development-trait roll of Training Results, which sits before any team spends a point. Here is the whole computation for one player, in order.</p>
+<ol class="steps">
+<li><strong>Peers.</strong> His cell is players with the same development trait, position and class year; his group is the same trait and position. The anchor is his cell's average original ceiling, shrunk toward the group when the cell is thin:
+<div class="formula">anchor = ( n × cellMean + 20 × groupMean ) / ( n + 20 )        n = players in the cell</div></li>
+<li><strong>Star billing.</strong> Within a cell, higher-star players sit higher. The part of his ceiling explained by his star rating is measured jointly with the cell means (25 alternating passes: cell means net of star offsets, then star offsets net of cell means) and only half of it is kept, so the spread never widens the gap between star ratings:
+<div class="formula">own    = offset[stars] − mean of offset over the cell's rated players       (0 for a player with no rating)
+target = anchor + 0.5 × own + 1.6 × ( original − anchor − own )</div>
+Everything not explained by stars is stretched by 1.6 away from the anchor.</li>
+<li><strong>Luck.</strong> A draw fixed by who he is, so it never re-rolls from season to season:
+<div class="formula">h    = SHA-1( seed + "|" + key )        key = PresentationId, birthdate and position;  seed 27
+u    = max( first 32 bits of h / 2^32, 1e-9 )        v = next 32 bits / 2^32
+luck = sqrt( −2 ln u ) × cos( 2π v )                 a standard normal
+raw  = target + 5 × luck</div></li>
+<li><strong>Re-centre.</strong> Shrinkage leaves each cell slightly off its true mean, and the stretch multiplies that; each cell is pulled back onto its original average, so no trait, position or class moves as a whole.</li>
+<li><strong>Program bias.</strong> Every program is scored once per pass from the game's own records: the Team row, the head coach it points at, and its purchased-upgrade row. Each part is a percentile rank across the league's programs (ties share the average rank):
+<div class="formula">score = 0.40 × upgrades + 0.25 × coachLevel + 0.15 × coachPrestige + 0.20 × facilities
+upgrades      = mean rank of OffseasonProgression, IncreasePracticeWTRecovery, ReducePracticeInjury, SeasonHealthImpact
+coachLevel    = rank among CPU-coached programs; a user coach gets the share of CPU coaches below him, capped at 0.90
+facilities    = FacilitiesLevel / 4</div>
+Within each development trait the players are ranked by their program's score and the rank is mapped to ±10 levels, added to <code>raw</code>. The <em>talent shield</em> blunts the downside for players who have already produced: a player's production rank within his position (section 6a) sets a shield strength of <code>(rank − 0.6) / 0.4</code>, clamped to 0..1, and a negative bias is multiplied by <code>1 − 0.9 × strength</code>; players without a season are shielded by how far their ceiling already sits above their anchor instead. The trait's mean bias is then restored on the unshielded, so the bias moves players relative to each other and never a trait as a whole.</li>
+<li><strong>Ceiling.</strong> A player pushed past 120 hands the excess to cell-mates with room, in proportion to their room, up to 8 rounds. The cell's total is preserved exactly.</li>
+<li><strong>Back into six groups.</strong> The rounded total is split across his groups in his original proportions, water-filled at 20 per group: a group that would overflow is pinned at 20 and the remainder re-spread, with largest-remainder rounding so the six always sum to the total.</li>
+<li><strong>Busts.</strong> A second fixed draw (<code>SHA-1("bust|seed|key")</code>) below 0.08 marks him a bust: his ceiling becomes the lower of what the stretch gave him and his overall minus 25, so he stops growing near where he is. Same odds at every star rating. It exists because a five-star's 112-of-120 ceiling never binds otherwise.</li>
+<li><strong>Breakout fuel.</strong> The levels the pass cut fund skill points for the players it sent furthest above their billing:
+<div class="formula">budget = round( 0.4 × levelsCut + 1.0 × bustLevels )        skill points, 20 per player, biggest boom first
+boom   = raw − ( anchor + 0.5 × own )                       his own share, star-neutral by construction</div>
+Skill points granted here are spent minutes later in the same Training Results.</li>
+<li><strong>Originals.</strong> Every season re-derives from the player's original ceilings, never from last year's stretched ones, so nothing compounds. The DLL records a player's originals the first time it sees him and never again, in one file shared by all dynasties (section 7 explains why that is the only safe rule).</li>
+</ol>
+
+<h2 id="results">6. Spread results in game</h2>
+<p>Port first, game second. The C port was run on the same inputs as the app's own pass and agreed on every one of 7,528 rostered players and 5,058 recruits, ceilings and skill points alike. In the game, two runs on the 2028 save and a second season on top verified the reads (every dumped value equal to the save), the writes (every ceiling in the post-run save equal to what the DLL wrote, apart from the game's own raises) and the store.</p>
+<figure>
+  <div class="legend"><span><i style="background:var(--van)"></i>same run, no spread</span><span><i style="background:var(--mod)"></i>with the spread</span></div>
+  <svg id="c-onestep" viewBox="0 0 640 240" role="img" aria-label="One Training Results with and without the spread: players at 90 plus, under 65, and growth spread"></svg>
+  <figcaption>One Training Results from the same 2028 save, rostered players, same mod and same DLL settings otherwise. Both tails widen; the mean rose 0.4 because fuel bought slightly more growth than the cuts removed.</figcaption>
+</figure>
+<div class="tbl"><table>
+<tr><th>Rostered players, one step</th><th class="n">no spread</th><th class="n">spread</th></tr>
+<tr><td>mean overall after</td><td class="n">75.76</td><td class="n">76.17</td></tr>
+<tr><td>growth per player, mean / spread (sd)</td><td class="n">4.32 / 3.21</td><td class="n">4.72 / 3.95</td></tr>
+<tr><td>gained 8 or more</td><td class="n">1,257</td><td class="n">1,764</td></tr>
+<tr><td>gained nothing or lost</td><td class="n">1,127</td><td class="n">1,467</td></tr>
+<tr><td>busts / fuelled players / fuel budget</td><td class="n">–</td><td class="n">538 / 1,734 / 34,680</td></tr>
+<tr><td>fuelled players' growth vs the rest</td><td class="n">–</td><td class="n">+8.59 vs +3.71</td></tr>
+</table></div>
+<h3>Two seasons</h3>
+<div class="tbl"><table>
+<tr><th>Rostered players, after season two</th><th class="n">human-pace line, no spread</th><th class="n">spread on</th></tr>
+<tr><td>mean overall</td><td class="n">76.38</td><td class="n">76.63</td></tr>
+<tr><td>players at 90+</td><td class="n">100</td><td class="n">180</td></tr>
+<tr><td>players under 65</td><td class="n">150</td><td class="n">219</td></tr>
+<tr><td>Star / Elite players</td><td class="n">324 / 88</td><td class="n">345 / 98</td></tr>
+<tr><td>mean ceiling total</td><td class="n">85.3</td><td class="n">81.4</td></tr>
+</table></div>
+<p>The league average drifts up about a fifth of a point a season at the shipped fuel rate of 0.4 points per level cut. That is a choice, not an accident: 0.2 would hold the average flat at the cost of fewer breakouts, and it is one line in the ini.</p>
+
+<h3 id="prod">6a. Production ranks, read in game</h3>
+<p>The shield needs to know who actually played. The DLL reads it the way the app does: each player's SeasonStats array points at his rows in the four season stat tables (offence, defence, offensive line, kicking); the counting stats are weighted in the spirit of fantasy scoring (passing yards 0.04, touchdowns 4 to 6, tackles 1, sacks 4, interceptions 6, drops and fumbles negative, and so on), divided by games played, and ranked within his position. Linemen barely register in the individual tables, so their score is the unit's output from the team's season stats (yards per carry, red-zone conversion, two-point tries, penalties and fumbles lost per game) plus their own sacks allowed and pancakes per hundred snaps, measured against the league median and shrunk toward neutral for players with few snaps. Every player row with a stat array is ranked, graduated seniors included, because the app ranks against everyone. On the 2030 save this ranked 8,727 players from 19,535 stat rows in 15 ms, identical to the app for every one of the 4,867 ranked players in that pass.</p>
+
+<h3>Three seasons, the whole pass</h3>
+<p>With every term verified, the full pass (ceilings, busts, fuel, program bias with the production shield) ran three seasons from the same 2028 save. These are measured on the cohort present in the start and every line's save, matched by name, birthdate and position, so recruiting classes that differ between lines do not enter. Growth is a player's overall now minus his overall at the start; Q1..Q4 split the cohort by the program score of the team he was on at the start.</p>
+<div class="tbl"><table>
+<tr><th>After two seasons, cohort of 4,834</th><th class="n">no spread</th><th class="n">spread, bias on</th></tr>
+<tr><td>mean overall</td><td class="n">78.70</td><td class="n">79.01</td></tr>
+<tr><td>players at 90+ / under 65</td><td class="n">139 / 58</td><td class="n">269 / 95</td></tr>
+<tr><td>Impact / Star / Elite</td><td class="n">1,071 / 265 / 70</td><td class="n">1,116 / 264 / 61</td></tr>
+<tr><td>growth, mean / spread (sd)</td><td class="n">7.85 / 4.31</td><td class="n">8.16 / 5.44</td></tr>
+<tr><td>gained 8 or more / gained nothing or lost</td><td class="n">2,547 / 316</td><td class="n">2,588 / 522</td></tr>
+<tr><td>growth at Q1 (worst programs) … Q4 (best)</td><td class="n">7.85 … 7.48</td><td class="n">7.50 … 8.26</td></tr>
+<tr><td>program effect, Q4 minus Q1</td><td class="n">−0.37</td><td class="n">+0.77</td></tr>
+</table></div>
+<div class="tbl"><table>
+<tr><th>After three seasons, cohort of 3,044</th><th class="n">no spread</th><th class="n">spread, bias on</th></tr>
+<tr><td>mean overall</td><td class="n">80.49</td><td class="n">80.97</td></tr>
+<tr><td>players at 90+ / under 65</td><td class="n">162 / 15</td><td class="n">296 / 35</td></tr>
+<tr><td>Impact / Star / Elite</td><td class="n">750 / 192 / 36</td><td class="n">786 / 183 / 27</td></tr>
+<tr><td>growth, mean / spread (sd)</td><td class="n">10.49 / 4.56</td><td class="n">10.96 / 6.06</td></tr>
+<tr><td>gained 8 or more / gained nothing or lost</td><td class="n">2,290 / 64</td><td class="n">2,160 / 150</td></tr>
+<tr><td>growth at Q1 … Q4</td><td class="n">10.40 … 10.32</td><td class="n">10.10 … 11.38</td></tr>
+<tr><td>program effect, Q4 minus Q1</td><td class="n">−0.09</td><td class="n">+1.28</td></tr>
+</table></div>
+<p>Both lines were saved at the same point of the season (the first day of the new year) and both ran on the same value tables, the corrected ones, after the no-spread line was re-run on them on 21 September 2026. Two things to read from that. The bias creates the effect it exists for, and it compounds: a player at a top-quarter program grows about 0.8 more than one at a bottom-quarter program after two seasons and 1.3 after three, where without it program quality made no difference (a line with the spread but the bias off, run earlier on the old tables, gave −0.40 after two seasons). And the spread’s own signature holds up over time: nearly twice the players at 90 or better, twice the sub-65 players, a wider spread of individual growth, and a league average about half a point higher, which is the fuel drift. The corrected tables themselves were worth about 0.1 of growth over two seasons on the no-spread line (7.66 against 7.56 at the same after-training-results stage), so the earlier caveat that they might explain the mean gap is settled: they do not.</p>
+
+<h2 id="assume">7. Assumptions and limits</h2>
+<p>Each entry says what was assumed, why, and what it costs if wrong. Items marked verified were checked in game.</p>
+<dl class="ledger">
+<div><dt>Who the spread touches <span class="tag ok">verified</span></dt><dd>Every row of the player table on a team (team index not 255) that is not an empty row. Recruits, players who have left and stale rows all carry 255, and signed recruits are not moved onto teams until after the pass. Empty rows read as all zeros and team 0 is a real team, which the first run found the hard way (1,702 phantom freshman quarterbacks); rows with no overall, no id and no ceiling are now skipped.</dd></div>
+<div><dt>Identity <span class="tag ok">verified</span></dt><dd>A player is his PresentationId, birthdate and position. The app uses id plus name; the DLL cannot read strings, so a player's luck and bust draw differ from the app's for him, with the same distribution. Of 4,539 players followed from one season to the next, 4,538 kept the same id, birthdate and row.</dd></div>
+<div><dt>Originals are written once, for everyone <span class="tag ok">verified</span></dt><dd>Dynasties started from the same base roster hold the same real players under the same key (1,651 of 1,654 name matches between two of Sean's dynasties carry the same id), and no rule on the ceilings themselves can tell one dynasty's stretched caps from another's: the best cap-pattern rule still misattributed 13% of shared players on real saves. So the first ceilings the DLL sees for a player are his originals for good, in one file. Every dynasty then stretches from vanilla with its own peers. Reload and replay lands on the same numbers. <b>Cost if wrong</b> a player first seen in a dynasty the app has already stretched carries those caps as originals into other dynasties; losing the file costs one re-record from stretched caps.</dd></div>
+<div><dt>The game raises some ceilings itself <span class="tag ok">verified</span></dt><dd>About 3.5% of rostered players gain 1 to 6 ceiling levels at Training Results in vanilla (268 of 7,771 in one run), and a few gain +1 across the board before the roll. The next pass overwrites those, exactly as the app does.</dd></div>
+<div><dt>Following a reference <span class="tag ok">verified</span></dt><dd>A reference field reads as the save file's own packed reference (table id and row) with the sign bit set, minus one; the record it points at comes from slot 37 of the table object's vtable, which is exactly how the game's own ProgressTeam fetches the coach-talents record it hands to the trait roll. Ten references resolved to the save's exact rows in the probe run.</dd></div>
+<div><dt>Program score <span class="tag ok">verified</span></dt><dd>Scored in game from the Team row, its head coach and its upgrade row: 138 of 138 programs identical to the app's score, every input included, on a save taken before Training Results (coach levels rise at Training Results after the roll, so a post-run save disagrees on those teams for a real reason). <b>Cost if wrong</b> a program whose coach or upgrade row does not resolve scores those parts as zero, which is what the app does for a missing row.</dd></div>
+<div><dt>Production ranks <span class="tag ok">verified</span></dt><dd>4,867 of 4,867 ranked players identical to the app, none ranked on one side only. Two things learned on the way: a field descriptor is the schema attribute index itself, and array slots are reached by index through the game's array interface, not through descriptors. Each direct read runs under an exception guard, so a descriptor the getter refuses is counted and skipped rather than ending the game (none was, in any run).</dd></div>
+<div><dt>Overflow stat tables</dt><dd>When a season stat table fills, the game allocates one-row tables of the same schema for the rest; 443 linemen sat in such tables after four seasons. At run time those rows come through the same table object as the main table, so they are recognised; if an unknown table object ever appears it is classified by how many field ids it admits, and a defensive-return overflow would then be misread as kicking, adding its snaps and games only.</dd></div>
+<div><dt>The pass sees last season's traits</dt><dd>The app runs after its own trait tool; the DLL runs before this offseason's rises and falls, so peer cells use last season's traits. A few hundred changes among 7,500 players barely move a cell mean.</dd></div>
+<div><dt>One pass per Training Results <span class="tag ok">verified</span></dt><dd>The rolls for the whole league arrive as one burst with no gap over 5 seconds inside it across 15 logged runs. A gap over 20 seconds, or a player rolled a second time, starts a new pass. A reload and replay is therefore a second pass, which is correct.</dd></div>
+<div><dt>Fuel drift is a setting</dt><dd>At 0.4 points per level cut the league average rises about 0.16 per season over three seasons (0.31 over the first two, 0.48 over three, both lines on one set of value tables). Sean chose to keep it; 0.2 would hold it flat.</dd></div>
+<div><dt>Value tables changed mid-series, then settled</dt><dd>The tables the spending hook weighs skill groups by were regenerated from a corrected overall fit before the three-season line with the bias ran. On 21 September 2026 the no-spread line was re-run on the same tables from the same save, three seasons, saved at the same stage; the tables in section 6 are that pair. The tables were worth about 0.1 of growth over two seasons; the rest of the gap is the spread.</dd></div>
+<div><dt>Noise</dt><dd>Each promotion is a coin flip: a count near 170 carries about ±13 of run-to-run noise, a count near 10 about ±3. Numbers in this document from single runs should be read with that in mind; the rise-tuning outlier at 13/29/47 is a real example.</dd></div>
+<div><dt>Player table size</dt><dd>The table is walked as 17,500 rows, the capacity of every save examined. A smaller live table has not been seen.</dd></div>
+<div><dt>Loading <span class="tag ok">verified</span></dt><dd>Injector only. A drop-in version.dll beside the exe never loads on this game: the exe's static import table holds only its DRM module and every other import is resolved at run time without looking beside the exe. The launcher runs the injector in watch mode, which waits for the game, injects 30 seconds after it appears and repeats on every launch; confirmed in game.</dd></div>
+<div><dt>Antivirus</dt><dd>Loading a DLL into another process is the technique some malware uses, and Windows Security flags the injector on that behaviour alone. The source is 120 lines and builds with gcc; the README gives the folder exclusion.</dd></div>
+<div><dt>Game updates <span class="tag ok">verified</span></dt><dd>The DLL finds the game's code by byte signature and checks each call site before patching. After an update it either still matches or logs and does nothing; it has never done anything in between. The 22 September 2026 title update was the first live test: it moved the progression code by about 0x360 bytes, and all three signatures still matched on the new build, both in game (every hook installed) and offline against a fresh memory dump of it. Release 0.2.1 is that build, unchanged.</dd></div>
+<div><dt>Coach gating and XP scaling <span class="tag">untested</span></dt><dd>Two further settings ship switched off and are not measured anywhere in this book: <code>coach_gate</code>, which sets the spending exponent from each team's program rank, and <code>xp_gate</code>, which scales each team's offseason skill-point award by the same rank. Both are built and self-tested against fake records, and the XP site is verified byte by byte at startup, but neither has been run for a season in a game. Every number in this book was measured with both at 0.</dd></div>
+</dl>
+
+<h2 id="method">8. How it was tested</h2>
+<p><b>Matched runs.</b> Every in-game comparison starts from the same checkpoint save, advances through one Training Results with one thing changed, and compares the saved results player by player, matching players by name and age rather than by id, because the game hands graduates' ids to new freshmen.</p>
+<p><b>Exactness before plumbing.</b> The spread's maths was validated offline before it ever wrote a ceiling in game: the app's own pass was run for real on a scratch copy of a save, the same inputs were fed to the C port, and every row had to agree, ceilings and skill points included. Every summation runs in table order and every formula keeps the app's operand order, so even the unrounded totals agree. A 628-player fixture is re-checked on every build.</p>
+<p><b>Plumbing after.</b> The DLL dumps every input it read and every value it wrote. A checker compares the inputs with the save the run started from (reads and row alignment), re-runs the port on the dumped inputs (maths), and compares the post-run save's ceilings with what was written (writes), and reports the growth of fuelled players against the rest.</p>
+<p><b>Self-tests.</b> The chooser, the fall roll, the coach-gating maths, the XP scaling and the spread each have a self-test the build script runs, against fake records shaped like the game's. A fourth check, <code>check-signatures</code>, re-verifies all three hook sites against a memory dump of any new game build.</p>
+<p><b>Re-measured after the value-table fix.</b> The spending figures were re-measured on the regenerated tables on 21 September 2026 (section 2), and the no-spread comparison line for the tables in section 6 was re-run on the same tables so that every line in them shares one set.</p>
+<p><b>The same standard for the in-game reads.</b> The program scores and production ranks are logged and dumped by the DLL at the roll; a checker runs the app's own functions on a checkpoint of the save taken before that Training Results and compares every team and every player. Both had to come back identical to one part in a billion before the bias was switched on, and the three-season line above ran only after they did.</p>
+
+<footer>AutoProgress, built and tested on the 10 September 2026 game build. The full working notes, run queue and assumption log live in the project repository.</footer>
+</div>
+
+<script>
+(function(){
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (t, a, txt) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (txt != null) e.textContent = txt; return e; };
+  const font = 'IBM Plex Mono, Consolas, monospace';
+
+  // grouped bar chart: groups = [{label, values:[{v, color, tag?}]}]
+  function bars(id, groups, opt) {
+    const svg = document.getElementById(id); if (!svg) return;
+    const W = 640, H = +svg.getAttribute('viewBox').split(' ')[3];
+    const padL = 44, padR = 12, padT = 18, padB = 40;
+    const max = opt.max || Math.max(...groups.flatMap(g => g.values.map(v => v.v))) * 1.15;
+    const gw = (W - padL - padR) / groups.length;
+    const ink = css('--ink'), ink2 = css('--ink-2'), rule = css('--rule');
+    const y = v => padT + (H - padT - padB) * (1 - v / max);
+    // gridlines
+    const ticks = opt.ticks || 4;
+    for (let i = 0; i <= ticks; i++) {
+      const v = max / ticks * i;
+      svg.appendChild(el('line', { x1: padL, x2: W - padR, y1: y(v), y2: y(v), stroke: rule, 'stroke-width': 1 }));
+      svg.appendChild(el('text', { x: padL - 6, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: ink2, 'font-family': font }, opt.fmt ? opt.fmt(v) : Math.round(v)));
+    }
+    groups.forEach((g, gi) => {
+      const n = g.values.length, bw = Math.min(34, (gw - 16) / n), x0 = padL + gw * gi + (gw - bw * n) / 2;
+      g.values.forEach((v, vi) => {
+        const x = x0 + bw * vi, h = y(0) - y(v.v);
+        const r = el('rect', { x, y: y(v.v), width: bw - 3, height: Math.max(h, 0), fill: v.color });
+        if (v.stroke) { r.setAttribute('stroke', v.stroke); r.setAttribute('stroke-width', 1.5); }
+        svg.appendChild(r);
+        svg.appendChild(el('text', { x: x + (bw - 3) / 2, y: y(v.v) - 4, 'text-anchor': 'middle', 'font-size': 11, fill: ink, 'font-family': font }, v.label != null ? v.label : (opt.vfmt ? opt.vfmt(v.v) : v.v)));
+      });
+      if (g.target != null) {
+        const ty = y(g.target), x1 = padL + gw * gi + 6, x2 = padL + gw * (gi + 1) - 6;
+        svg.appendChild(el('line', { x1, x2, y1: ty, y2: ty, stroke: css('--target'), 'stroke-width': 2.5, 'stroke-dasharray': '6 4' }));
+      }
+      const lab = el('text', { x: padL + gw * gi + gw / 2, y: H - padB + 16, 'text-anchor': 'middle', 'font-size': 12, fill: ink, 'font-family': 'IBM Plex Sans, system-ui, sans-serif' }, g.label);
+      svg.appendChild(lab);
+      if (g.sub) svg.appendChild(el('text', { x: padL + gw * gi + gw / 2, y: H - padB + 30, 'text-anchor': 'middle', 'font-size': 11, fill: ink2, 'font-family': font }, g.sub));
+    });
+  }
+  const mod = css('--mod'), van = css('--van'), tgt = css('--target'), soft = css('--mod-soft');
+
+  bars('c-tables', [
+    { label: 'random (vanilla)', values: [{ v: 2.16, color: van }] },
+    { label: 'impact table', values: [{ v: 3.58, color: mod }] },
+    { label: 'impact-first', values: [{ v: 3.73, color: mod }] },
+    { label: 'ovr-first (shipped)', values: [{ v: 3.94, color: mod }] },
+    { label: 'overall table', values: [{ v: 4.00, color: mod }] },
+    { label: 'perfect picker', values: [{ v: 4.38, color: tgt }] },
+  ], { max: 5, ticks: 5, fmt: v => v.toFixed(0), vfmt: v => v.toFixed(2) });
+
+  bars('c-pace', [
+    { label: 'vanilla picks', sub: '237 at 90+', values: [{ v: 1.20, color: van }] },
+    { label: 'XP × 0.55 (vanilla pace)', sub: '234 at 90+', values: [{ v: 1.53, color: mod }] },
+    { label: 'XP × 0.75 (middle)', sub: '271 at 90+', values: [{ v: 1.94, color: mod }] },
+    { label: 'XP × 1.00 (human pace)', sub: '332 at 90+', values: [{ v: 2.40, color: mod }] },
+  ], { max: 3, ticks: 3, fmt: v => '+' + v.toFixed(0), vfmt: v => '+' + v.toFixed(2) });
+
+  bars('c-rise', [
+    { label: 'Normal → Impact', target: 167, values: [
+      { v: 87, color: van }, { v: 129, color: soft, stroke: mod }, { v: 155, color: soft, stroke: mod }, { v: 202, color: soft, stroke: mod }, { v: 152, color: mod } ] },
+    { label: 'Impact → Star', target: 57, values: [
+      { v: 10, color: van }, { v: 45, color: soft, stroke: mod }, { v: 64, color: soft, stroke: mod }, { v: 62, color: soft, stroke: mod }, { v: 68, color: mod } ] },
+    { label: 'Star → Elite', target: 10, values: [
+      { v: 1, color: van }, { v: 2, color: soft, stroke: mod }, { v: 17, color: soft, stroke: mod }, { v: 5, color: soft, stroke: mod }, { v: 14, color: mod } ] },
+  ], { max: 230, ticks: 4, fmt: v => Math.round(v) });
+  // bar order legend under the rise chart
+  (function(){ const svg = document.getElementById('c-rise'); if (!svg) return;
+    svg.appendChild(el('text', { x: 44, y: 254, 'font-size': 11, fill: css('--ink-2'), 'font-family': font }, 'bars in order: 25/50/75 · 20/35/55 · 15/25/40 · 13/29/47 · 14/29/43 (shipped); dashed line = target')); })();
+
+  bars('c-onestep', [
+    { label: 'players at 90+', values: [{ v: 97, color: van }, { v: 161, color: mod }] },
+    { label: 'players under 65', values: [{ v: 208, color: van }, { v: 253, color: mod }] },
+    { label: 'gained 8 or more', values: [{ v: 1257, color: van, label: '1,257' }, { v: 1764, color: mod, label: '1,764' }] },
+    { label: 'gained nothing or lost', values: [{ v: 1127, color: van, label: '1,127' }, { v: 1467, color: mod, label: '1,467' }] },
+  ], { max: 2000, ticks: 4, fmt: v => v >= 1000 ? (v / 1000) + 'k' : Math.round(v) });
+
+  // three-season line: two small panels
+  (function(){
+    const svg = document.getElementById('c-line'); if (!svg) return;
+    const ink = css('--ink'), ink2 = css('--ink-2'), rule = css('--rule');
+    function panel(x0, w, title, series, lo, hi, fmt) {
+      const padT = 26, padB = 34, H = 250, padL = 40;
+      const y = v => padT + (H - padT - padB) * (1 - (v - lo) / (hi - lo));
+      const x = i => x0 + padL + (w - padL - 14) * i / 2;
+      svg.appendChild(el('text', { x: x0 + padL, y: 14, 'font-size': 12, fill: ink, 'font-family': 'IBM Plex Sans, system-ui, sans-serif', 'font-weight': 600 }, title));
+      for (let i = 0; i <= 3; i++) { const v = lo + (hi - lo) * i / 3;
+        svg.appendChild(el('line', { x1: x0 + padL, x2: x0 + w - 14, y1: y(v), y2: y(v), stroke: rule }));
+        svg.appendChild(el('text', { x: x0 + padL - 5, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: ink2, 'font-family': font }, fmt(v))); }
+      ['TR 1', 'TR 2', 'TR 3'].forEach((t, i) => svg.appendChild(el('text', { x: x(i), y: H - padB + 18, 'text-anchor': 'middle', 'font-size': 12, fill: ink, 'font-family': 'IBM Plex Sans, system-ui, sans-serif' }, t)));
+      series.forEach(s => {
+        const d = s.v.map((v, i) => (i ? 'L' : 'M') + x(i) + ' ' + y(v)).join(' ');
+        svg.appendChild(el('path', { d, fill: 'none', stroke: s.color, 'stroke-width': 3, 'stroke-linejoin': 'round' }));
+        s.v.forEach((v, i) => { svg.appendChild(el('circle', { cx: x(i), cy: y(v), r: 4, fill: s.color }));
+          svg.appendChild(el('text', { x: x(i), y: y(v) + (s.up ? -9 : 17), 'text-anchor': 'middle', 'font-size': 11, fill: ink, 'font-family': font }, s.fmt ? s.fmt(v) : v)); });
+      });
+    }
+    panel(0, 320, 'Players at 90+ (whole table)', [ { v: [167, 169, 200], color: van }, { v: [327, 434, 502], color: mod, up: true } ], 100, 550, v => Math.round(v));
+    panel(320, 320, 'Mean overall (whole table)', [ { v: [72.28, 72.40, 72.70], color: van, fmt: v => v.toFixed(2) }, { v: [73.69, 74.30, 74.78], color: mod, up: true, fmt: v => v.toFixed(2) } ], 71.5, 75.5, v => v.toFixed(1));
+  })();
+})();
+</script>
