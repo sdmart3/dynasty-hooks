@@ -1,7 +1,7 @@
 # Dynasty Hooks for College Football 27
 
 A DLL that hooks the game's dynasty decisions (how CPU teams develop players, who enters the portal,
-who redshirts, what coaches buy, how a game resumes, and more) and a settings tool to switch each
+who redshirts, what coaches buy, how a game resumes, when Super Sim is offered, and more) and a settings tool to switch each
 hook on or off. Offline dynasties only; built and tested on the 22 September 2026 game build.
 
 **Everything ships off.** With nothing switched on, a game launched under it is vanilla. Switch on
@@ -45,6 +45,7 @@ are in `AutoProgress-Method.html` in this folder (also at https://sdmart3.github
 | Development Spread | `spread` | shipped | every rostered player's ceilings are re-rolled once a year around players like him, about 8% bust, and the freed levels fund the breakouts (the Dynasty Development app's roster pass, inside the game; originals remembered in `spread-baseline.tsv`) |
 | Program quality | `spread_bias` (with `spread`) | shipped | coach, prestige, facilities and upgrades score every program and nudge its players' ceiling targets; top-quarter programs grew players about 1.3 overall more than bottom-quarter ones over three seasons |
 | Dynasty Auto Cadence | `cadence_force` | shipped | the alternate cadences a config mod enables in Play Now work in Dynasty games too |
+| Super Sim anytime | `supersim_anytime` | proven | the pause menu offers Super Sim when you pause at the line, not only on the play-call screen (for auto-playcalling) |
 | Transfer portal | `portal_gate` | proven | scale every player's chance to enter the portal (`portal_scale`) and cap it per player (`portal_cap`): vanilla 47% of evaluated players leave; scale 0.5 gave 21%, cap 50 gave 27% |
 | Skill-cap raises | `cap_raise_gate` | proven | give every program some ceiling growth (`cap_raise_floor`, 3% a roll) where the game only grows ceilings through a coach talent 32 of 138 programs carry: 3,074 raises on 2,470 players a season against 602 vanilla |
 | Coach-quality spending | `coach_gate` | proven | how sharply a CPU team spends its players' points follows its program rank instead of one league-wide setting |
@@ -90,6 +91,16 @@ box-score stats, injuries, momentum, the play clock. Overtime situations are ref
 Dynasty games too: the DLL sets the allow flag at every pre-play. Proven in game 2026-09-22. Off by
 default; on the Flow tab. The same feature ships on its own as a separate zip for people who want
 only that.
+
+## Super Sim anytime
+
+The pause menu only offers Super Sim on the play-call screen, so with an auto-playcalling mod (or any
+time you skip play call) you never get the chance. `supersim_anytime = 1` makes the pause menu offer it
+when you pause while lined up before the snap as well. It changes one answer in the game's own "is
+Super Sim allowed?" check, after that check's other rules (online games, game mode) have run, and
+picking the tile runs the game's own Super Sim with all of its options. `supersim_anytime_states`
+chooses the moments: `1` = at the line (tested), `1,4` = also right after the whistle (untested).
+Proven in game 2026-09-24 with an auto-playcalling mod on. Off by default; on the Flow tab.
 
 ## Read-only probes (for the curious)
 
@@ -152,6 +163,7 @@ ship at their tested values, so switching a master on gives the tested configura
 * `<feature> ... installed` / `<feature>: <key>=0, leaving ... alone`: per hook, once per launch. A
   `not patching` or `signature not found` line means the game build changed and that hook did nothing.
 * `resume force applied ...` / `resume force refused: <why>`: what a resume attempt did.
+* `supersim_anytime: flow state 1 -> Super Sim offered`: the pause menu was given the Super Sim tile at the line.
 
 ## Known limits
 
@@ -162,4 +174,4 @@ ship at their tested values, so switching a master on gives the tested configura
 * CPU redshirting: the written status holds through the season and the game rolls it over like its
   own, but whether the player also sat out is unmeasured.
 
-Built and tested 2026-09-23 on the 22 September 2026 game build.
+Built and tested 2026-09-24 on the 22 September 2026 game build.
