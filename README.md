@@ -1,13 +1,13 @@
 # Dynasty Hooks for College Football 27
 
 A DLL that hooks the game's dynasty decisions (how CPU teams develop players, who enters the portal,
-who redshirts, what coaches buy, how a game resumes, when Super Sim is offered, and more) and a settings tool to switch each
+who redshirts, what coaches buy, how a game resumes, when Super Sim is offered, whether play history keeps counting, which plays the coach suggests, which abilities play at Heisman, and more) and a settings tool to switch each
 hook on or off. Offline dynasties only; built and tested on the 22 September 2026 game build.
 
 **Everything ships off.** With nothing switched on, a game launched under it is vanilla. Switch on
 what you want in the settings tool; your choices live in your `autoprogress.ini` and are kept
-when you update (copy the new files over the old ones except that ini; the DLL treats a key that is
-missing from an older ini as off).
+when you update (copy the new files over the old ones except that ini and your own `playcall-rules.txt` /
+`playcall-rules-wholebook.txt` if you edited them; the DLL treats a key that is missing from an older ini as off).
 
 ## Start here
 
@@ -46,6 +46,10 @@ are in `AutoProgress-Method.html` in this folder (also at https://sdmart3.github
 | Program quality | `spread_bias` (with `spread`) | shipped | coach, prestige, facilities and upgrades score every program and nudge its players' ceiling targets; top-quarter programs grew players about 1.3 overall more than bottom-quarter ones over three seasons |
 | Dynasty Auto Cadence | `cadence_force` | shipped | the alternate cadences a config mod enables in Play Now work in Dynasty games too |
 | Super Sim anytime | `supersim_anytime` | proven | the pause menu offers Super Sim when you pause at the line, not only on the play-call screen (for auto-playcalling) |
+| Play History fix | `playhistory_fix` | proven | the play-call screen's times called and yards per call keep counting for every play instead of resetting each time the game loads (about half the plays in stock and custom books) |
+| Heisman abilities | `heisman_player1..64`, `heisman_rank5` | proven | chosen players' abilities play at the Heisman tier in every game, hot or cold (the game normally reaches Heisman only while a Platinum player is hot); pick them on the settings tool's Player Abilities tab |
+| Coach suggestions from your whole playbook | `wholebook_suggest` | proven | your offense's coach suggestions come from every play in your book, scored for the snap, with your gameplan still leading |
+| Play-call rules | `playcall_rules` | proven | a rules file nudges the suggestions by down, distance, field position, clock and score ('on 3rd and long, deep passes x5') |
 | Transfer portal | `portal_gate` | proven | scale every player's chance to enter the portal (`portal_scale`) and cap it per player (`portal_cap`): vanilla 47% of evaluated players leave; scale 0.5 gave 21%, cap 50 gave 27% |
 | Skill-cap raises | `cap_raise_gate` | proven | give every program some ceiling growth (`cap_raise_floor`, 3% a roll) where the game only grows ceilings through a coach talent 32 of 138 programs carry: 3,074 raises on 2,470 players a season against 602 vanilla |
 | Coach-quality spending | `coach_gate` | proven | how sharply a CPU team spends its players' points follows its program rank instead of one league-wide setting |
@@ -101,6 +105,44 @@ Super Sim allowed?" check, after that check's other rules (online games, game mo
 picking the tile runs the game's own Super Sim with all of its options. `supersim_anytime_states`
 chooses the moments: `1` = at the line (tested), `1,4` = also right after the whistle (untested).
 Proven in game 2026-09-24 with an auto-playcalling mod on. Off by default; on the Flow tab.
+
+## Play History fix
+
+The play-call screen keeps a running total for every play: times called and yards per call. For about
+half the plays in the game, stock and custom playbooks alike, it never builds up: the game saves those
+plays under a cut-down id, cannot find them after a reload, and starts them from zero every time.
+`playhistory_fix = 1` makes the game save the full id (a 4-byte change to the code that saves your
+profile; nothing in your dynasty save changes). History already lost stays lost; counting starts from
+the first game played with it on. Proven in game 2026-09-26. Off by default; on the Flow tab.
+
+## Heisman abilities
+
+In the game a player's ability only reaches the Heisman tier while he is hot on a Platinum ability, and it
+drops back when he cools. This keeps chosen players' abilities at Heisman for the whole game, hot or cold.
+
+- Open the settings tool, **Player Abilities** tab. Press **+ Add player**, type the name as it appears in the
+  game, pick his player type and tick the abilities (or **All his abilities**). Save, then load a game.
+- The tab also lists every player type and its five abilities, straight from the game's own tables.
+- It raises abilities the player already has; it cannot give him new ones. Mental abilities are not changed.
+- It applies to both teams (a CPU player with the same name is lifted too) and to every game from the next
+  load. Your save is not changed: his in-game ability card shows Heisman, while the dynasty menus keep
+  showing the tier he really has.
+- Up to 64 players.
+
+## Coach suggestions and play-call rules
+
+Your offense's coach suggestions normally come only from your playbook's gameplan for the situation: about 20
+plays, often all one kind. Two switches on the settings tool's **Play Calling** tab change that (offline games,
+your offense only; your defense, special teams and the CPU's play calling are untouched):
+
+- **Coach suggestions from your whole playbook** (`wholebook_suggest`): the list is built from every play in your
+  book and scored for the snap. Your gameplan still leads, the rest of the book fills in with plays that fit the
+  down, distance, field, clock and score, and a play you just called shows up less for a few snaps. Kicks, spikes,
+  kneels and goal-line sets on normal downs are left out. Needs Coach Suggestions ON in the game settings.
+- **Play-call rules** (`playcall_rules`): `playcall-rules.txt` next to the DLL holds one rule per line, e.g.
+  'on 3rd and 7 or longer, deep passes x5'. The file is re-read the moment you save it, even mid-game. It works
+  best together with the whole-playbook suggestions; `playcall-rules-wholebook.txt` is a draft rulebook of 25
+  gentle college-football rules to start from. The grammar is in the file headers.
 
 ## Read-only probes (for the curious)
 
@@ -164,6 +206,7 @@ ship at their tested values, so switching a master on gives the tested configura
   `not patching` or `signature not found` line means the game build changed and that hook did nothing.
 * `resume force applied ...` / `resume force refused: <why>`: what a resume attempt did.
 * `supersim_anytime: flow state 1 -> Super Sim offered`: the pause menu was given the Super Sim tile at the line.
+* `playhistory_fix installed: Play History writer at ...`: the profile save now keeps full play ids.
 
 ## Known limits
 
