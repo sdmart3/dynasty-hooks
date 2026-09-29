@@ -47,7 +47,7 @@ are in `AutoProgress-Method.html` in this folder (also at https://sdmart3.github
 | Dynasty Auto Cadence | `cadence_force` | shipped | the alternate cadences a config mod enables in Play Now work in Dynasty games too |
 | Super Sim anytime | `supersim_anytime` | proven | the pause menu offers Super Sim when you pause at the line, not only on the play-call screen (for auto-playcalling) |
 | Play History fix | `playhistory_fix` | proven | the play-call screen's times called and yards per call keep counting for every play instead of resetting each time the game loads (about half the plays in stock and custom books) |
-| Heisman abilities | `heisman_player1..64`, `heisman_rank5` | proven | chosen players' abilities play at the Heisman tier in every game, hot or cold (the game normally reaches Heisman only while a Platinum player is hot); pick them on the settings tool's Player Abilities tab |
+| Heisman abilities | `heisman_player1..64`, `heisman_rank5` | proven | chosen players' abilities play at the Heisman tier in every game, hot or cold (the game normally reaches Heisman only while a Platinum player is hot); pick them, or a whole team, on the settings tool's Player Abilities tab |
 | Coach suggestions from your whole playbook | `wholebook_suggest` | proven | your offense's coach suggestions come from every play in your book, scored for the snap, with your gameplan still leading |
 | Play-call rules | `playcall_rules` | proven | a rules file nudges the suggestions by down, distance, field position, clock and score ('on 3rd and long, deep passes x5') |
 | Transfer portal | `portal_gate` | proven | scale every player's chance to enter the portal (`portal_scale`) and cap it per player (`portal_cap`): vanilla 47% of evaluated players leave; scale 0.5 gave 21%, cap 50 gave 27% |
@@ -127,7 +127,10 @@ drops back when he cools. This keeps chosen players' abilities at Heisman for th
 - It applies to both teams (a CPU player with the same name is lifted too) and to every game from the next
   load. Your save is not changed: his in-game ability card shows Heisman, while the dynasty menus keep
   showing the tier he really has.
-- Up to 64 players.
+- **+ Add whole team** does a whole roster instead: pick the school, and every player on it (anyone who
+  joins later too) gets all the physical abilities he has earned at Heisman. A player with no abilities yet
+  gets nothing, because the game only loads abilities that are at least Bronze.
+- Up to 64 rows; a whole team counts as one.
 
 ## Coach suggestions and play-call rules
 
