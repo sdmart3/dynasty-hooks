@@ -2,20 +2,26 @@
 
 A DLL that hooks the game's dynasty decisions (how CPU teams develop players, who enters the portal,
 who redshirts, what coaches buy, how a game resumes, when Super Sim is offered, whether play history keeps counting, which plays the coach suggests, which abilities play at Heisman, and more) and a settings tool to switch each
-hook on or off. Offline dynasties only; built and tested on the 22 September 2026 game build.
+hook on or off. Offline dynasties only; built and tested on the 22 September 2026 game build and the
+1 October 2026 title update.
 
-**Everything ships off.** With nothing switched on, a game launched under it is vanilla. Switch on
-what you want in the settings tool; your choices live in your `autoprogress.ini` and are kept
+**Everything ships off.** With nothing switched on, a game launched under it is vanilla. (The one switch
+that ships on, `patch_safe`, only decides HOW a hook you turn on is written into the game; it changes nothing
+by itself.) Switch on what you want in the settings tool; your choices live in your `autoprogress.ini` and are kept
 when you update (copy the new files over the old ones except that ini and your own `playcall-rules.txt` /
 `playcall-rules-wholebook.txt` if you edited them; the DLL treats a key that is missing from an older ini as off).
 
 ## Start here
 
-1. Unzip anywhere (a folder in Documents is fine) and keep the files together. Add the folder as an
-   antivirus exclusion first: see "Antivirus" below, `inject.exe` will be quarantined otherwise.
+1. Unzip anywhere (a folder in Documents is fine) and keep the files together. **Required:** add the
+   folder as an antivirus exclusion before the first launch (see "Antivirus" below). Otherwise Windows
+   Security removes `inject.exe` the first time it runs and nothing loads.
 2. Double-click `Start AutoProgress.cmd`. A console window waits for the game, loads the DLL about
    30 seconds after the game appears, and keeps waiting for the next launch. Leave it open while you
    play. A launch without it is vanilla.
+   **Or let the MMC Mod Manager load it:** if you launch the game from the Mod Manager, the Mod Manager
+   plugin (a separate download, `DynastyHooks-ModManagerPlugin-*.zip`) does this step for you every time you
+   press Launch, and Start AutoProgress is not needed. See "Loading from the Mod Manager" below.
 3. The settings tool is a separate download on the release page (`DynastyHooks-Settings-*.zip`,
    about 100 MB because it carries its own browser runtime): unzip it so that the `Dynasty Hooks
    Settings` folder sits inside this folder, then open `Dynasty Hooks Settings.exe`. Its Guide tab is
@@ -47,6 +53,9 @@ are in `AutoProgress-Method.html` in this folder (also at https://sdmart3.github
 | Dynasty Auto Cadence | `cadence_force` | shipped | the alternate cadences a config mod enables in Play Now work in Dynasty games too |
 | Super Sim anytime | `supersim_anytime` | proven | the pause menu offers Super Sim when you pause at the line, not only on the play-call screen (for auto-playcalling) |
 | Play History fix | `playhistory_fix` | proven | the play-call screen's times called and yards per call keep counting for every play instead of resetting each time the game loads (about half the plays in stock and custom books) |
+| Play History per dynasty / season / game | `phmodes` | proven (per season, per game); per dynasty experimental | the play-call screen's times called and yards per call count only this dynasty, this season or this game instead of your lifetime total; the game's own lifetime history is kept |
+| Press A to skip | `a_skip` | proven | one tap of A ends a non-football scene (pregame intro, the ref's penalty announcement, cutaways, celebrations, replays, drive starters, timeouts, quarter and halftime breaks, the end-of-game scenes); never at the line, in a play, on the play-call screen or on a menu |
+| Speed-up behind the play-call screen | `cutscene_speed_behind_playcall` | proven | the cutaways and crowd shots that keep playing behind the play-call screen run this many times faster (55 recommended) |
 | Heisman abilities | `heisman_player1..64`, `heisman_rank5` | proven | chosen players' abilities play at the Heisman tier in every game, hot or cold (the game normally reaches Heisman only while a Platinum player is hot); pick them, or a whole team, on the settings tool's Player Abilities tab |
 | Coach suggestions from your whole playbook | `wholebook_suggest` | proven | your offense's coach suggestions come from every play in your book, scored for the snap, with your gameplan still leading |
 | Play-call rules | `playcall_rules` | proven | a rules file nudges the suggestions by down, distance, field position, clock and score ('on 3rd and long, deep passes x5') |
@@ -115,6 +124,70 @@ plays under a cut-down id, cannot find them after a reload, and starts them from
 profile; nothing in your dynasty save changes). History already lost stays lost; counting starts from
 the first game played with it on. Proven in game 2026-09-26. Off by default; on the Flow tab.
 
+## Play History per dynasty / season / game
+
+The play-call screen's times called and yards per call normally count every game you have ever played. `phmodes`
+picks what they count instead: `0` lifetime (the game's own numbers, the default), `1` this dynasty, `2` this
+season, `3` this game. Only games you play to the final whistle are added to a season or a dynasty; a game you quit
+is dropped (unless you continue it with the resume settings, then it counts once it is finished). In Play Now,
+per dynasty and per season show the current game. The game's own lifetime history is not touched, so going back to
+`0` shows it again. The totals live in a `playhistory` folder next to the DLL, one file per dynasty; an existing
+dynasty starts at zero. Change it with the game closed. Turn on the Play History fix too. Proven in game 2026-10-01.
+Off by default; on the Flow tab.
+
+## Press A to skip, and the speed-up behind the play-call screen
+
+Both are on the settings tool's **Flow** tab, card "Press A to skip". Both ship OFF.
+
+- **Press A to skip** (`a_skip = 1`). Tap A during a scene that is not football and it ends: the pregame
+  intro, the ref announcing a penalty, a cutaway or celebration, a replay after a score, a drive starter, a
+  timeout, the quarter or halftime break, and the end-of-game scenes. `a_skip_groups = all` (the default) covers
+  all of those; to leave the end-of-game scenes alone, list the groups you want instead (every group in `all`
+  except `postgame`; the ini lists them). Your A still reaches the game as always. Nothing is skipped at the
+  line, during a play, on the play-call screen or on any menu (penalty accept / decline, injury decision, coin
+  toss). When the play-call screen or a menu comes next, the skip is quiet: the scene just ends, with no fade
+  and no team-logo wipe. Proven in game 2026-10-01 (no loading screens, no flashes, accept / decline worked).
+- **Speed-up behind the play-call screen** (`cutscene_speed_behind_playcall`, recommended `55`). Cutaways, the
+  coach's reaction to a flag and the crowd shots keep playing behind the play-call screen, where A picks your
+  play, so A cannot skip them. This runs them that many times faster while the screen is up (at most one extra
+  second of scene per frame; at 30 fps, 55 acts like about 31). Your play call is not touched. Proven in game
+  2026-09-30.
+
+Turn on both for the full effect: `a_skip = 1` and `cutscene_speed_behind_playcall = 55`.
+
+## Loading from the Mod Manager (plugin)
+
+If you start the game with the MMC Mod Manager's Launch button (1.1.0.6 or 1.1.0.5), the Mod Manager plugin
+loads Dynasty Hooks for you; you no longer need the Start AutoProgress window. Download
+`DynastyHooks-ModManagerPlugin-*.zip`, close the Mod Manager, and follow its `README.txt`. Two setups:
+
+- **A. You already have this Dynasty Hooks folder.** Copy the zip's `Plugins` folder into the Mod Manager
+  folder (merge it), then set `hooks_dir` in `Plugins\DynastyHooks\plugin.cfg` to this folder. The plugin
+  loads THIS folder's DLL with THIS folder's `autoprogress.ini`, so the settings tool keeps working on the same
+  file. Close Start AutoProgress and don't use it any more (the plugin stands aside while it runs).
+- **B. You only want the plugin.** The same zip carries its own DLL, ini and `inject.exe`. Copy its `Plugins`
+  folder into the Mod Manager folder and leave `hooks_dir` empty; your settings file is then
+  `Plugins\DynastyHooks\autoprogress.ini`.
+
+**Required for both, before the first launch:** an antivirus exclusion for the folder the hooks load from:
+`Plugins\DynastyHooks` in the Mod Manager folder (setup B), or this Dynasty Hooks folder (setup A). Without it,
+Windows Security removes `inject.exe` the first time it runs, and `plugin.log` then says
+`...\inject.exe is missing; not loading the hooks` at every launch. See "Antivirus" below.
+
+`Plugins\DynastyHooks\plugin.log` says what the plugin did at each launch; `autoprogress.log` (next to the
+ini that applies) has the hooks' own lines. Turn it off with `plugin_enabled = 0` in `plugin.cfg`; remove it by
+deleting `Plugins\DynastyHooksPlugin.dll` and `Plugins\DynastyHooks`. Setup A is proven in game
+(2026-10-01); setup B is new in this release.
+
+## Experimental switches (off, not yet proven in a game)
+
+These are built and self-tested, and their cards say EXPERIMENTAL. Leave them off unless you want to try one
+on a copy of a save: per-dynasty play history (`phmodes = 1`), the general cutscene speed (`cutscene_speed`,
+every scene; only its read-only probe has run), bowl practices (`bowl_xp`), coach XP speed
+(`coachxp_cpu_scale` / `coachxp_user_scale`), the auto play-calling switch (`auto_playcall`), resume-a-game
+stats and injuries (`resume_stats_merge`), Advance N weeks (`advance_weeks`), and the read-only diagnostics
+(`db_probe`, `playbook_handle_probe`, `advance_probe`, `hook_timing`).
+
 ## Heisman abilities
 
 In the game a player's ability only reaches the Heisman tier while he is hot on a Platinum ability, and it
@@ -157,12 +230,23 @@ you care about the sim speed of.
 
 ## Antivirus
 
-**Windows Security and most scanners quarantine `inject.exe` on sight**, because loading a DLL into
-another program (the whole job of this tool) is a technique some malware uses. There is nothing else
-in it: the source is `src/inject.c` in the repository, about 120 lines. Add the Dynasty Hooks folder
-as an exclusion *before* unzipping (Virus & threat protection > Manage settings > Exclusions), or
-restore the file from quarantine and re-extract it afterwards. `autoprogress.dll` has not been
-flagged in testing; the same exclusion covers it.
+**Windows Security and most scanners quarantine `inject.exe`**, on sight or the first time it runs
+(in testing: `Behavior:Win32/DefenseEvasion.A!ml`, 4 seconds after it loaded the hooks). Loading a DLL into
+another program is the whole job of this tool, and some malware does the same thing, so antivirus treats it
+as suspicious behaviour. There is nothing else in it: the source is `src/inject.c` in the repository, about
+120 lines. `autoprogress.dll` has not been flagged in testing; the same exclusion covers it.
+
+**Add the exclusion before the first launch (required):**
+
+1. Windows Security > **Virus & threat protection** > **Manage settings** (under "Virus & threat protection
+   settings") > **Exclusions** > **Add or remove exclusions**.
+2. **Add an exclusion** > **Folder**, and pick the folder `inject.exe` runs from: this Dynasty Hooks folder
+   (Start AutoProgress, or the Mod Manager plugin's setup A), or `Plugins\DynastyHooks` in the Mod Manager
+   folder (the plugin's setup B). Doing it before you unzip is best.
+
+**If `inject.exe` is already gone:** add the exclusion, then restore it (Windows Security > Virus & threat
+protection > **Protection history**, the `inject.exe` entry, **Actions** > **Allow** or **Restore**) or
+extract it from the zip again into the same folder.
 
 Injector options: `--watch` (keep running, inject every launch; what the .cmd runs), `--delay <sec>`
 (default 30), `--poll <sec>` (default 2). It never injects twice into one game process. If it reports
@@ -193,8 +277,9 @@ ship at their tested values, so switching a master on gives the tested configura
   (`spread_store = <name>.tsv`) or `spread = 0`.
 * **Reloading a save and replaying Training Results** is fine: the spread lands on the same numbers.
 * **Game updates.** The DLL finds the game's code by fingerprint and checks it byte by byte before
-  patching. After an update it either still matches or logs and does nothing. The 22 September 2026
-  update moved the code and every fingerprint still matched.
+  patching. After an update it either still matches or logs and does nothing. The 22 September and
+  1 October 2026 updates moved the code and every fingerprint still matched; with `patch_verify = 1` the
+  bytes around each site are also compared with the hash recorded for that build before anything is written.
 * **First try on a copy.** Copy the save, run one Training Results, read the `spread run 1:` line and
   your roster, then decide.
 * **Your own team.** The defaults never touch the user team's progression screens. Where a hook
@@ -207,9 +292,13 @@ ship at their tested values, so switching a master on gives the tested configura
 * `spread run N: ...`: one line per Training Results with the whole pass summarised.
 * `<feature> ... installed` / `<feature>: <key>=0, leaving ... alone`: per hook, once per launch. A
   `not patching` or `signature not found` line means the game build changed and that hook did nothing.
+* `trampoline: page ... (+-N MB)`: where a hook's jump was placed. `trampoline: no free 64 KB slot within 2 GB`
+  means the game had no room left near that hook this launch; it did nothing until the next launch.
 * `resume force applied ...` / `resume force refused: <why>`: what a resume attempt did.
 * `supersim_anytime: flow state 1 -> Super Sim offered`: the pause menu was given the Super Sim tile at the line.
 * `playhistory_fix installed: Play History writer at ...`: the profile save now keeps full play ids.
+* `phmodes: game #N START (...)` / `phmodes: game #N reached the final whistle: added ...`: what the play-call screen counts this game, and what was saved.
+* `a_skip hook installed: a_skip=1 ...` once per launch; `a_skip SKIP ...` / `a_skip SKIP quiet ...` per skip; `a_skip summary: ...` every 10 minutes (with the speed-up's `sped_up=` count).
 
 ## Known limits
 
@@ -219,5 +308,8 @@ ship at their tested values, so switching a master on gives the tested configura
   the restored point. Possession is waited for, never forced.
 * CPU redshirting: the written status holds through the season and the game rolls it over like its
   own, but whether the player also sat out is unmeasured.
+* The speed-up behind the play-call screen does not speed up the crowd shot when play resumes after a
+  quarter break (another part of that scene holds it at normal speed).
+* A-skip on the end-of-game scenes is new in this release; its in-game check is still pending.
 
-Built and tested 2026-09-24 on the 22 September 2026 game build.
+Built 2026-10-02 (0.7.0) and checked against the 22 September and 1 October 2026 game builds.
