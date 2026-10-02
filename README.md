@@ -56,6 +56,7 @@ are in `AutoProgress-Method.html` in this folder (also at https://sdmart3.github
 | Play History per dynasty / season / game | `phmodes` | proven (per season, per game); per dynasty experimental | the play-call screen's times called and yards per call count only this dynasty, this season or this game instead of your lifetime total; the game's own lifetime history is kept |
 | Press A to skip | `a_skip` | proven | one tap of A ends a non-football scene (pregame intro, the ref's penalty announcement, cutaways, celebrations, replays, drive starters, timeouts, quarter and halftime breaks, the end-of-game scenes); never at the line, in a play, on the play-call screen or on a menu |
 | Speed-up behind the play-call screen | `cutscene_speed_behind_playcall` | proven | the cutaways and crowd shots that keep playing behind the play-call screen run this many times faster (55 recommended) |
+| Cutscene speed | `cutscene_speed`, `cutscene_timer_scale` | proven | every presentation scene (the ref's penalty announcement, celebrations, walk-offs) plays this many times faster, and the fixed pauses between them are divided too (2 and 2 recommended); replaces the 2x cutscene mod, which must be off |
 | Heisman abilities | `heisman_player1..64`, `heisman_rank5` | proven | chosen players' abilities play at the Heisman tier in every game, hot or cold (the game normally reaches Heisman only while a Platinum player is hot); pick them, or a whole team, on the settings tool's Player Abilities tab |
 | Coach suggestions from your whole playbook | `wholebook_suggest` | proven | your offense's coach suggestions come from every play in your book, scored for the snap, with your gameplan still leading |
 | Play-call rules | `playcall_rules` | proven | a rules file nudges the suggestions by down, distance, field position, clock and score ('on 3rd and long, deep passes x5') |
@@ -155,6 +156,23 @@ Both are on the settings tool's **Flow** tab, card "Press A to skip". Both ship 
 
 Turn on both for the full effect: `a_skip = 1` and `cutscene_speed_behind_playcall = 55`.
 
+## Cutscene speed (replaces the 2x cutscene mod)
+
+On the settings tool's **Flow** tab, card "Cutscene speed". Ships OFF.
+
+- Set **Speed multiplier** to `2` and **Divide the fixed waits** to `2` (`cutscene_speed = 2`,
+  `cutscene_timer_scale = 2`), and leave **Which scenes** at `all` (the default since 0.7.1). Every presentation
+  scene (the ref announcing a penalty, the result signal, celebrations, walk-offs) then plays twice as fast, and
+  the fixed pauses before them are halved.
+- **Turn the 2x cutscene mod off** in the Mod Manager when this is on. The two multiply: with both on, scenes run
+  at 4x.
+- Proven in game 2026-10-02 on the 1 October 2026 game build: a full dynasty game at 2 / 2 / all, every scene and
+  every pause sped up, no crashes, and it felt the same as the 2x mod.
+- It does not speed up camera holds, `DelayUntil` waits or the replay slow-motion highlight (the mod does). No
+  difference was noticed in play.
+
+It works alongside A-skip and the speed-up behind the play-call screen.
+
 ## Loading from the Mod Manager (plugin)
 
 If you start the game with the MMC Mod Manager's Launch button (1.1.0.6 or 1.1.0.5), the Mod Manager plugin
@@ -182,8 +200,7 @@ deleting `Plugins\DynastyHooksPlugin.dll` and `Plugins\DynastyHooks`. Setup A is
 ## Experimental switches (off, not yet proven in a game)
 
 These are built and self-tested, and their cards say EXPERIMENTAL. Leave them off unless you want to try one
-on a copy of a save: per-dynasty play history (`phmodes = 1`), the general cutscene speed (`cutscene_speed`,
-every scene; only its read-only probe has run), bowl practices (`bowl_xp`), coach XP speed
+on a copy of a save: per-dynasty play history (`phmodes = 1`), bowl practices (`bowl_xp`), coach XP speed
 (`coachxp_cpu_scale` / `coachxp_user_scale`), the auto play-calling switch (`auto_playcall`), resume-a-game
 stats and injuries (`resume_stats_merge`), Advance N weeks (`advance_weeks`), and the read-only diagnostics
 (`db_probe`, `playbook_handle_probe`, `advance_probe`, `hook_timing`).
@@ -299,6 +316,7 @@ ship at their tested values, so switching a master on gives the tested configura
 * `playhistory_fix installed: Play History writer at ...`: the profile save now keeps full play ids.
 * `phmodes: game #N START (...)` / `phmodes: game #N reached the final whistle: added ...`: what the play-call screen counts this game, and what was saved.
 * `a_skip hook installed: a_skip=1 ...` once per launch; `a_skip SKIP ...` / `a_skip SKIP quiet ...` per skip; `a_skip summary: ...` every 10 minutes (with the speed-up's `sped_up=` count).
+* `cutscene hook installed: cutscene_speed=2.00 ...` once per launch; `cutscene summary: script starts=N scaled=N ... refused=0; timers imported=N divided=N`: how many scenes and pauses were sped up.
 
 ## Known limits
 
@@ -310,6 +328,6 @@ ship at their tested values, so switching a master on gives the tested configura
   own, but whether the player also sat out is unmeasured.
 * The speed-up behind the play-call screen does not speed up the crowd shot when play resumes after a
   quarter break (another part of that scene holds it at normal speed).
-* A-skip on the end-of-game scenes is new in this release; its in-game check is still pending.
+* Cutscene speed does not speed up camera holds, `DelayUntil` waits or the replay slow-motion highlight.
 
-Built 2026-10-02 (0.7.0) and checked against the 22 September and 1 October 2026 game builds.
+Built 2026-10-02 (0.7.1) and checked against the 22 September and 1 October 2026 game builds.
